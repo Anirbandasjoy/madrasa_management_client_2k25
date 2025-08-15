@@ -7,20 +7,20 @@ import Loading from "../shared/Loading";
 
 const PublicRoute = ({ children }: { children: React.ReactNode }) => {
   const { data, isLoading } = useGetCurrentUserQuery();
-  const userInfo = data?.payload;
+  const email = data?.data?.userId?.email;
   const router = useRouter();
 
   useEffect(() => {
-    if (userInfo?.email) {
+    if (email) {
       router.push("/dashboard");
     }
-  }, [userInfo, router]);
+  }, [email, router]);
 
   if (isLoading) {
     return <Loading />;
   }
 
-  return <>{!userInfo?.email ? children : null}</>;
+  return <>{!email ? children : null}</>;
 };
 
 export default PublicRoute;

@@ -24,6 +24,12 @@ export default function Page() {
   const [handleLogOut] = useHandleLogOutMutation();
   const { data } = useGetCurrentUserQuery();
 
+  console.log({ data });
+
+  const role = data?.data?.userId?.role;
+
+  console.log({role})
+
   const logOut = async () => {
     try {
       await handleLogOut().unwrap();
@@ -34,14 +40,12 @@ export default function Page() {
       console.error(error);
       toast.error(error?.data?.message || "An error occurred during logout");
     }
-  };
-
-  const isBanned = data?.payload?.isBanned;
+  }
 
   return (
     <main className="flex items-center justify-center px-6 py-4 h-screen w-screen bg-black">
       <div className="flex items-center space-x-4">
-        {data?.payload ? (
+        {data?.data ? (
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <div className=" text-gray-300 hover:text-white transition-colors ">
@@ -74,7 +78,7 @@ export default function Page() {
             </div>
           </Link>
         )}
-        {!isBanned && data?.payload?.role === "admin" && (
+        {data?.data?.userId?.role === "admin" && (
           <Link href="/dashboard">
             <div className="bg-white text-gray-900 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors">
               Dashboard

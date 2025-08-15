@@ -58,7 +58,7 @@ const immigrationAuthApi = Api.injectEndpoints({
     getCurrentUser: builder.query<loginResponse, void>({
       query: () => {
         return {
-          url: `/user/logged-in-user`,
+          url: `/auth/logged-in-user`,
           method: "GET",
         };
       },
