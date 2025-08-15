@@ -7,7 +7,7 @@ export interface loginResponse {
   success: boolean;
   statusCode: number;
   message: string;
-  payload: {
+  data: {
     _id: string;
     name?: string;
     email: string;
@@ -16,6 +16,12 @@ export interface loginResponse {
     createdAt: string;
     updatedAt: string;
     isBanned: string;
+    userId: {
+      _id: string;
+      name: string;
+      email: string;
+      role: string;
+    };
   };
 }
 
