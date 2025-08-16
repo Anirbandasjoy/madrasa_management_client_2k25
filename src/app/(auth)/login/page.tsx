@@ -36,11 +36,15 @@ const Login = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<LoginReq> = async (data) => {
-    console.log(data);
     try {
-      await handleLogin(data).unwrap();
-      toast.success("Successfully logged in!");
-      router.push("/");
+      const response = await handleLogin(data).unwrap();
+      if (response?.data?.twoFactor) {
+        toast.success("Successfully logged in!");
+        router.push("/");
+      } else {
+        toast.success("Checkout email and verify your account!");
+        router.push(`/verify-user?email=${encodeURIComponent(data.email)}`);
+      }
     } catch (error: any) {
       toast.error(error?.data?.message || "An error occurred");
     }

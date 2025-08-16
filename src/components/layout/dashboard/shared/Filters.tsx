@@ -48,7 +48,7 @@ export default function Filters({
               onChange={handleLimitChange}
               className="border border-gray-300 px-2 py-1 cursor-pointer"
             >
-              {[5, 10, 25, 50, 100].map((val) => (
+              {[1, 10, 25, 50, 100].map((val) => (
                 <option key={val} value={val}>
                   {val}
                 </option>

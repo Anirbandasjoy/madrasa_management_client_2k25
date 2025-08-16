@@ -81,6 +81,14 @@ const immigrationAuthApi = Api.injectEndpoints({
       },
     }),
 
+    handleVerifyUser: builder.mutation<any, any>({
+      query: (data) => ({
+        url: "/auth/verify-2fa",
+        method: "PUT",
+        body: data,
+      }),
+    }),
+
     handleEnable2FA: builder.mutation<any, any>({
       query: ({ password }) => {
         return {
@@ -112,4 +120,5 @@ export const {
   useHandleUpdatePasswordMutation,
   useHandleEnable2FAMutation,
   useHandleDisable2FAMutation,
+  useHandleVerifyUserMutation,
 } = immigrationAuthApi;

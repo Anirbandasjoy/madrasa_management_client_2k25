@@ -24,12 +24,6 @@ export default function Page() {
   const [handleLogOut] = useHandleLogOutMutation();
   const { data } = useGetCurrentUserQuery();
 
-  console.log({ data });
-
-  const role = data?.data?.userId?.role;
-
-  console.log({role})
-
   const logOut = async () => {
     try {
       await handleLogOut().unwrap();

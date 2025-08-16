@@ -16,6 +16,7 @@ export interface loginResponse {
     createdAt: string;
     updatedAt: string;
     isBanned: string;
+    twoFactor: any;
     userId: {
       _id: string;
       name: string;
@@ -50,7 +51,7 @@ export interface IForgotPasswordResponse {
 
 export interface IResetPasswordRequest {
   token: string;
-  password: string;
+  newPassword: string;
 }
 
 export interface IResetPasswordResponse {

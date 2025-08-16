@@ -56,7 +56,10 @@ const ResetPassword = () => {
       return;
     }
     try {
-      await handleResetPassword({ token, password: data?.password }).unwrap();
+      await handleResetPassword({
+        token,
+        newPassword: data?.password,
+      }).unwrap();
       toast.success("Successfully reset password! Please Login");
 
       router.push("/login");
