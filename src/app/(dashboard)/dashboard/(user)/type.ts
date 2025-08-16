@@ -8,6 +8,12 @@ export interface IData {
   role: string;
   createdAt: string;
   updatedAt: string;
+  userId: {
+    _id: string;
+    email: string;
+    role: string;
+    createdAt: string;
+  };
 }
 
 export interface Params {
@@ -37,10 +43,6 @@ export interface ManageCustomerTableProps {
   selectedData: string[];
   handleSelect: (id: string) => void;
   handleStatusUpdate: (id: string, status: string) => void;
-  handleUnBan: (id: string) => void;
-  handleBan: (id: string) => void;
-  unBanLoading: boolean;
-  banLoading: boolean;
   limit: number;
   error: any;
   setStatus: (status: string) => void;
