@@ -1,21 +1,14 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { Button } from "@/components/ui/button";
 import Filters from "@/components/layout/dashboard/shared/Filters";
 import { GlobalPagination } from "@/components/layout/dashboard/shared/GlobalPagination/GlobalPagination";
 import {
   useGetAllUserQuery,
   useHandleUserStatusMutation,
 } from "@/Redux/features/user/userApi";
-import {
-  useHandleBanUserMutation,
-  useHandleUnBanUserMutation,
-} from "@/Redux/features/auth/authApi";
 import ManageUserTable from "./ManageUserTable";
 import { IData } from "../type";
-import { baseURL } from "@/Redux/api/baseApi";
-
 const ManageUser = () => {
   const [searchText, setSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,21 +22,18 @@ const ManageUser = () => {
     limitChange: false,
   });
 
-  const [isBanned, setIsBanned] = useState<boolean>(false);
 
   const { data, refetch, isLoading, error, isError } = useGetAllUserQuery({
     page: currentPage,
     limit,
     search: searchText,
-    isBanned,
   });
-  const [handleUserStatus] = useHandleUserStatusMutation();
-  const [handleBanUser, { isLoading: banLoading }] = useHandleBanUserMutation();
-  const [handleUnBanUser, { isLoading: unBanLoading }] =
-    useHandleUnBanUserMutation();
 
-  const allData: IData[] = data?.payload?.users || [];
-  const totalPages = data?.payload?.pagination?.totalPages || 1;
+  console.log(data?.data);
+  const [handleUserStatus] = useHandleUserStatusMutation();
+
+  const allData: IData[] = data?.data?.data || [];
+  const totalPages = data?.data?.meta?.totalPages || 1;
   const allSelected =
     allData.length > 0 && selectedData.length === allData.length;
 
@@ -83,30 +73,6 @@ const ManageUser = () => {
     setLoadingState((prev) => ({ ...prev, limitChange: false }));
   };
 
-  const handleBan = async (id: string) => {
-    try {
-      await handleBanUser(id).unwrap();
-      toast.success("Successfully banned user!");
-      refetch();
-    } catch (error: any) {
-      const errorMessage =
-        error?.data?.payload?.message || "Something went wrong";
-      toast.error(errorMessage);
-    }
-  };
-
-  const handleUnBan = async (id: string) => {
-    try {
-      await handleUnBanUser(id).unwrap();
-      toast.success("Successfully unbanned user!");
-      refetch();
-    } catch (error: any) {
-      const errorMessage =
-        error?.data?.payload?.message || "Something went wrong";
-      toast.error(errorMessage);
-    }
-  };
-
   const handleStatusUpdate = async (id: string, status: string) => {
     try {
       const data = { id, role: status };
@@ -120,15 +86,6 @@ const ManageUser = () => {
     }
   };
 
-  const handleDownloadExcel = () => {
-    const params = new URLSearchParams({
-      name: searchText,
-      status,
-    }).toString();
-    const url = `${baseURL}/user/download-excel?${params}`;
-    window.open(url, "_blank");
-  };
-
   useEffect(() => {
     if (searchText === "") refetch();
   }, [searchText, refetch]);
@@ -140,36 +97,11 @@ const ManageUser = () => {
         handleSearch={handleSearch}
         limit={limit}
         handleLimitChange={handleLimitChange}
-        totalCount={data?.payload?.pagination?.totalCount || 0}
+        totalCount={data?.data?.meta?.total || 0}
         isError={isError}
         headingTitle="Manage User"
         headingSubtitle="Manage all your users. You can ban users."
       />
-      <div className="flex flex-wrap gap-2">
-        <Button
-          className={`${
-            !isBanned ? "" : "bg-gray-100 text-black hover:bg-gray-200"
-          }`}
-          onClick={() => setIsBanned(false)}
-        >
-          Ongoing
-        </Button>
-        <Button
-          className={`${
-            isBanned ? "" : "bg-gray-100 text-black hover:bg-gray-200"
-          }`}
-          onClick={() => setIsBanned(true)}
-        >
-          Banned
-        </Button>
-
-        <Button
-          onClick={handleDownloadExcel}
-          className="bg-green-600 text-white hover:bg-green-700"
-        >
-          Download Excel
-        </Button>
-      </div>
 
       <ManageUserTable
         allSelected={allSelected}
@@ -180,12 +112,8 @@ const ManageUser = () => {
         selectedData={selectedData}
         handleSelect={handleSelect}
         handleStatusUpdate={handleStatusUpdate}
-        handleUnBan={handleUnBan}
         limit={limit}
         error={error}
-        handleBan={handleBan}
-        unBanLoading={unBanLoading}
-        banLoading={banLoading}
         setStatus={setStatus}
         status={status}
       />

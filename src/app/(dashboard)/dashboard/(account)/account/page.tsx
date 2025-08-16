@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import {
@@ -16,10 +16,12 @@ import { Input } from "@/components/ui/input";
 import { FaEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import { useRouter } from "next/navigation";
-import { Edit2} from "lucide-react";
+import { Edit2 } from "lucide-react";
 import { GiDuck } from "react-icons/gi";
 import {
   useGetCurrentUserQuery,
+  useHandleDisable2FAMutation,
+  useHandleEnable2FAMutation,
   useHandleUpdatePasswordMutation,
 } from "@/Redux/features/auth/authApi";
 import Loading from "@/components/layout/shared/Loading";
@@ -48,13 +50,19 @@ export interface ErrorResponse {
 const AdminAccount = () => {
   const { data: currentUser, isLoading: currentUserLoading } =
     useGetCurrentUserQuery();
-  const user = currentUser?.payload;
+
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const user = currentUser?.data;
 
   const [
     handleUpdatePassword,
     { isLoading: updatePasswordLoading, error: updatePasswordError },
   ] = useHandleUpdatePasswordMutation();
-
+  const [handleEnable2FA, { isLoading: enable2FALoading }] =
+    useHandleEnable2FAMutation();
+  const [handleDisable2FA, { isLoading: disable2FALoading }] =
+    useHandleDisable2FAMutation();
 
   const [passwordVisibility, setPasswordVisibility] = useState({
     oldPassword: false,
@@ -71,7 +79,6 @@ const AdminAccount = () => {
     watch,
   } = useForm<IUpdatePasswordRequest>();
 
-
   const [successCode, setSuccessCode] = useState<number>(0);
 
   const passwordUpdate = async (formData: IUpdatePasswordRequest) => {
@@ -82,6 +89,48 @@ const AdminAccount = () => {
       reset();
     } catch {
       toast.error("❌ Failed to update password. Please try again.");
+    }
+  };
+  const enable2FA = async () => {
+    const password = passwordRef.current?.value?.trim();
+    if (!password) {
+      toast.error("⚠️ Please enter your password to enable 2FA.");
+      return;
+    }
+
+    try {
+      await handleEnable2FA({ password }).unwrap();
+      toast.success("2FA enabled successfully");
+      setSuccessCode(200);
+      reset();
+      if (passwordRef.current) passwordRef.current.value = ""; // clear input
+    } catch (enable2FAError: any) {
+      toast.error(
+        enable2FAError?.data?.error[0]?.message ||
+          "❌ Failed to enable 2FA. Please try again."
+      );
+      console.log({ enable2FAError });
+    }
+  };
+
+  const disable2FA = async () => {
+    const password = passwordRef.current?.value?.trim();
+    if (!password) {
+      toast.error("⚠️ Please enter your password to disable 2FA.");
+      return;
+    }
+
+    try {
+      await handleDisable2FA({ password }).unwrap();
+      toast.success("2FA disabled successfully");
+      setSuccessCode(200);
+      reset();
+      if (passwordRef.current) passwordRef.current.value = ""; // clear input
+    } catch (disable2FAError: any) {
+      toast.error(
+        disable2FAError?.data?.error[0]?.message ||
+          "❌ Failed to disable 2FA. Please try again."
+      );
     }
   };
 
@@ -97,7 +146,7 @@ const AdminAccount = () => {
   if (currentUserLoading) {
     return <Loading />;
   }
-  if (!currentUser?.payload) {
+  if (!currentUser) {
     return (
       <div className="flex items-center justify-center  bg-gradient-to-br ">
         <div className="text-center p-8 bg-white rounded-xl shadow-sm">
@@ -139,9 +188,93 @@ const AdminAccount = () => {
                   Email Address
                 </p>
                 <h2 className="text-xl font-semibold text-gray-900 mt-1">
-                  {user?.email}
+                  {user?.userId?.email}
                 </h2>
               </div>
+            </div>
+
+            <Separator className="my-6" />
+
+            <div>
+              <h3 className="text-lg font-medium text-gray-900 mb-4">
+                Two Factor is{" "}
+                {user?.userId?.twoFactor?.isEnabled ? "Enabled" : "Disabled"}
+              </h3>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="outline" className="gap-2">
+                    <Edit2 className="h-4 w-4" />
+                    Make{" "}
+                    {user?.userId?.twoFactor?.isEnabled
+                      ? "Disabled"
+                      : "Enabled"}
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      {user?.userId?.twoFactor?.isEnabled
+                        ? "Disable Two-Factor Authentication"
+                        : "Enable Two-Factor Authentication"}
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      For security reasons, please confirm your account password
+                      before changing 2FA status.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+
+                  {/* ✅ Password input with useRef */}
+                  <div className="mt-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Password
+                    </label>
+                    <div className="relative">
+                      <Input
+                        type={passwordVisibility.password ? "text" : "password"}
+                        placeholder="Enter your password"
+                        className="pr-10"
+                        ref={passwordRef} // 👈 attach useRef
+                      />
+                      <button
+                        type="button"
+                        onClick={() => togglePasswordVisibility("password")}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                      >
+                        {passwordVisibility.password ? (
+                          <FaEyeSlash className="h-5 w-5" />
+                        ) : (
+                          <IoEyeSharp className="h-5 w-5" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  <AlertDialogFooter>
+                    <Button
+                      onClick={
+                        user?.userId?.twoFactor?.isEnabled
+                          ? () => disable2FA()
+                          : () => enable2FA()
+                      }
+                      className="bg-orange-600 text-white"
+                      disabled={
+                        user?.userId?.twoFactor?.isEnabled
+                          ? disable2FALoading
+                          : enable2FALoading
+                      }
+                    >
+                      {user?.userId?.twoFactor?.isEnabled
+                        ? disable2FALoading
+                          ? "Loading..."
+                          : "Disable 2FA"
+                        : enable2FALoading
+                        ? "Loading..."
+                        : "Enable 2FA"}
+                    </Button>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
 
             <Separator className="my-6" />
@@ -389,7 +522,6 @@ const AdminAccount = () => {
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
-                  
                 </div>
               </div>
             </div>

@@ -1,4 +1,3 @@
-
 // UI Components
 import {
   Table,
@@ -32,7 +31,6 @@ import {
   CalendarDays,
   CircleArrowOutDownRight,
   MoreHorizontal,
-  Slash,
   User,
   UserCog,
 } from "lucide-react";
@@ -47,12 +45,8 @@ export default function ManageUserTable({
   selectedData,
   handleSelect,
   handleStatusUpdate,
-  handleUnBan,
   limit,
   error,
-  handleBan,
-  unBanLoading,
-  banLoading,
   setStatus,
   status,
 }: ManageCustomerTableProps) {
@@ -96,10 +90,7 @@ export default function ManageUserTable({
           </TableRow>
         ) : (
           allData.map((item) => (
-            <TableRow
-              key={item._id}
-              className={item.isBanned ? "bg-red-50 hover:bg-red-100" : ""}
-            >
+            <TableRow key={item._id}>
               <TableCell>
                 <Checkbox
                   checked={selectedData.includes(item._id)}
@@ -112,11 +103,11 @@ export default function ManageUserTable({
               </TableCell>
               <TableCell>
                 <AtSign size={16} className="text-blue-500 inline mr-1" />
-                <span>{item.email}</span>
+                <span>{item.userId?.email}</span>
               </TableCell>
               <TableCell>
                 <CalendarDays size={18} className="text-blue-600 inline mr-1" />
-                {new Date(item.createdAt).toLocaleDateString("en-US", {
+                {new Date(item.userId?.createdAt).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "short",
                   day: "numeric",
@@ -133,12 +124,12 @@ export default function ManageUserTable({
                     }
                   />
                   <span>
-                    {item.role === "admin" ? (
+                    {item.userId?.role === "admin" ? (
                       <span className="bg-amber-400 px-2 py-1 text-white rounded-sm">
-                        {item.role}
+                        {item.userId?.role}
                       </span>
                     ) : (
-                      item.role
+                      item.userId?.role
                     )}
                   </span>
                 </div>
@@ -152,44 +143,6 @@ export default function ManageUserTable({
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    {/* Ban / Unban */}
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <button className="flex items-center gap-2 text-orange-600 p-2 hover:bg-orange-50 w-full cursor-pointer">
-                          <Slash className="w-4 h-4" />
-                          {item.isBanned ? "Unban" : "Ban"}
-                        </button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>
-                            Are you sure you want to{" "}
-                            {item.isBanned ? "Unban" : "Ban"} this user?
-                          </AlertDialogTitle>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction
-                            className="bg-orange-600 text-white"
-                            onClick={
-                              item.isBanned
-                                ? () => handleUnBan(item._id)
-                                : () => handleBan(item._id)
-                            }
-                            disabled={item.isBanned ? unBanLoading : banLoading}
-                          >
-                            {item.isBanned
-                              ? unBanLoading
-                                ? "Loading..."
-                                : "Unban"
-                              : banLoading
-                              ? "Loading..."
-                              : "Ban"}
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-
                     {/* Update Status */}
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
@@ -230,11 +183,8 @@ export default function ManageUserTable({
                           <AlertDialogAction
                             className="bg-blue-600 text-white"
                             onClick={() => handleStatusUpdate(item._id, status)}
-                            disabled={banLoading || unBanLoading}
                           >
-                            {banLoading || unBanLoading
-                              ? "Updating..."
-                              : "Update"}
+                            Update
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
