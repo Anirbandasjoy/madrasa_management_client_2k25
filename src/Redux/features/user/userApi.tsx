@@ -45,7 +45,7 @@ const immigrationUserApi = Api.injectEndpoints({
     }),
 
     getAllUser: builder.query<any, any>({
-      query: ({ page, limit, search, isBanned }) => {
+      query: ({ page, limit, search }) => {
         return {
           url: "/users/",
           method: "GET",
@@ -53,7 +53,6 @@ const immigrationUserApi = Api.injectEndpoints({
             page: page,
             limit: limit,
             search: search,
-            isBanned,
           },
         };
       },

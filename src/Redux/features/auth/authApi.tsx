@@ -81,19 +81,21 @@ const immigrationAuthApi = Api.injectEndpoints({
       },
     }),
 
-    handleBanUser: builder.mutation<any, any>({
-      query: (id) => {
+    handleEnable2FA: builder.mutation<any, any>({
+      query: ({ password }) => {
         return {
-          url: `/auth/banned/${id}`,
-          method: "PATCH",
+          url: `/auth/enable-2fa`,
+          method: "POST",
+          body: { password },
         };
       },
     }),
-    handleUnBanUser: builder.mutation<any, any>({
-      query: (id) => {
+    handleDisable2FA: builder.mutation<any, any>({
+      query: ({ password }) => {
         return {
-          url: `/auth/unbanned/${id}`,
-          method: "PATCH",
+          url: `/auth/disable-2fa`,
+          method: "POST",
+          body: { password },
         };
       },
     }),
@@ -108,6 +110,6 @@ export const {
   useHandleResetPasswordMutation,
   useGetCurrentUserQuery,
   useHandleUpdatePasswordMutation,
-  useHandleBanUserMutation,
-  useHandleUnBanUserMutation,
+  useHandleEnable2FAMutation,
+  useHandleDisable2FAMutation,
 } = immigrationAuthApi;

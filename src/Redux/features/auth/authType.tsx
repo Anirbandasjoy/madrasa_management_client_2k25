@@ -21,6 +21,11 @@ export interface loginResponse {
       name: string;
       email: string;
       role: string;
+      twoFactor: {
+        code: null;
+        expiresAt: null;
+        isEnabled: boolean;
+      };
     };
   };
 }
