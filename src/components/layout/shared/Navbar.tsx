@@ -33,6 +33,9 @@ export default function Navbar({ pageName }: any) {
       <Link href="/admission" className={navClass("/admission")}>
         Admission
       </Link>
+      <Link href="/Contact" className={navClass("/Contact")}>
+        Contact
+      </Link>
     </>
   );
   useEffect(() => {
@@ -88,11 +91,11 @@ export default function Navbar({ pageName }: any) {
       </div>
 
 
-      <div className="mt-6 px-8 py-3 bg-whit relative z-50 border border-gray-200 bg-success rounded" style={{
-        backgroundImage: "url('islamic-pattern-1.svg')",
+      <div className="p-6 relative z-50  bg-success" style={{
+        backgroundImage: "url('breadcrum.svg')",
         backgroundSize: 500,
       }}>
-        <div className="max-w-screen-xl mx-auto  flex items-center justify-between" >
+        <div className="max-w-screen-xl mx-auto flex flex-col items-center justify-center " >
 
           <h1 className=" text-2xl sm:text-[32px] font-medium font-akshar text-white capitalize">{pageName}</h1>
 
