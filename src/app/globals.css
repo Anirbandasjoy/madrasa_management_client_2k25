@@ -54,9 +54,9 @@ select {
 
 select {
   background-image: url("/Arrow.svg");
-  background-size: 24px;
+  background-size: 15px;
   background-repeat: no-repeat;
-  background-position: calc(100% - 8px) center;
+  background-position: calc(100% - 12px) center;
 }
 
 @theme inline {
