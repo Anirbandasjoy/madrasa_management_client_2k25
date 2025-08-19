@@ -8,7 +8,7 @@ import { useEffect } from "react";
 const isUser = (Component: any) => {
   return function IsUser(props: any) {
     const { data: currentUser, isLoading } = useGetCurrentUserQuery();
-    const user = currentUser?.payload?.role === "user";
+    const user = currentUser?.data?.role === "user";
     const router = useRouter();
 
     useEffect(() => {

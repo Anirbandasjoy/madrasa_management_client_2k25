@@ -13,6 +13,50 @@
   --color-bg-gradient-red-orange: linear-gradient(106.18deg, #e13030 1.35%, #f86f19 100%);
   --color-bg-dark-gray: #333333;
   --color-bg-soft-pink: #fef2f1;
+  
+}
+
+
+@theme {
+  --font-inter: var(--font-inter);
+  --font-akshar: var(--font-akshar);
+
+  --color-neutral: #101828;
+  --color-success: #156c59;
+  --color-font-2: #666666;
+  --color-mint: #eefbf6;
+  --color-deepSuccess: #11594a;
+  --color-gray: #4c4c4c;
+  --color-color-7:#F6F6EF;
+  --color-font-1:#101828;
+  --color-font-2:#666666;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+/* box-shadow: 2px 2px 5px 0px #1A1A1A0D; */
+.shadow-custom {
+  box-shadow: 2px 2px 5px 0px #1a1a1a0d;
+}
+
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+select {
+  background-image: url("/Arrow.svg");
+  background-size: 24px;
+  background-repeat: no-repeat;
+  background-position: calc(100% - 8px) center;
 }
 
 @theme inline {
