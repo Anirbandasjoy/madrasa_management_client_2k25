@@ -4,7 +4,8 @@ import * as React from "react";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -291,6 +292,212 @@ function CarouselNext2({
   );
 }
 
+function CustomCarouselContent({ className, ...props }: React.ComponentProps<"div">) {
+  const { carouselRef, orientation } = useCarousel()
+
+  return (
+    <div
+      ref={carouselRef}
+      className="overflow-hidden"
+      data-slot="carousel-content"
+    >
+      <div
+        className={cn(
+          "flex",
+          orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
+          className
+        )}
+        {...props}
+      />
+    </div>
+  )
+}
+
+function CustomCarouselPrevious({
+  className,
+  variant = "ghost",
+  size = "icon",
+  ...props
+}: React.ComponentProps<typeof Button>) {
+  const { orientation, scrollPrev, canScrollPrev } = useCarousel()
+
+  return (
+    <Button
+      data-slot="carousel-previous"
+      variant={variant}
+      size={size}
+      className={cn(
+        "absolute h-10 w-10 sm:h-12 sm:w-12 rounded-full text-[#101828] sm:text-white bg-none border-[1px] sm:border-white z-50 cursor-pointer ",
+        orientation === "horizontal"
+          ? "right-12 sm:right-18 -top-11 sm:-top-12 lg:-top-[60px] 2xl:-top-[70px] -translate-y-1/2"
+          : "-top-4 left-1/2 -translate-x-1/2 rotate-90",
+        className
+      )}
+      disabled={!canScrollPrev}
+      onClick={scrollPrev}
+      {...props}
+    >
+      <ArrowLeft className="size-7 text-bgBlue" />
+      <span className="sr-only">Previous slide</span>
+    </Button>
+  )
+}
+
+
+function CustomCarouselNext({
+  className,
+  variant = "ghost",
+  size = "icon",
+  ...props
+}: React.ComponentProps<typeof Button>) {
+  const { orientation, scrollNext, canScrollNext } = useCarousel()
+
+  return (
+    <Button
+      data-slot="carousel-next"
+      variant={variant}
+      size={size}
+      className={cn(
+        "absolute h-10 w-10 sm:h-12 sm:w-12 rounded-full text-[#101828] sm:text-primary bg-none border-[1px] sm:border-white z-50 cursor-pointer",
+        orientation === "horizontal"
+          ? "right-0 sm:right-0 -top-11 sm:-top-12  lg:-top-[60px] 2xl:-top-[70px] -translate-y-1/2"
+          : "-bottom-4 left-1/2 -translate-x-1/2 rotate-90",
+        className
+      )}
+      disabled={!canScrollNext}
+      onClick={scrollNext}
+      {...props}
+    >
+      <ArrowRight className="size-7 text-bgBlue"/>
+      <span className="sr-only">Next slide</span>
+    </Button>
+  )
+}
+
+
+function CustomCarouselPrevious1({
+  className,
+  variant = "ghost",
+  size = "icon",
+  ...props
+}: React.ComponentProps<typeof Button>) {
+  const { orientation, scrollPrev, canScrollPrev } = useCarousel()
+
+  return (
+    <Button
+      data-slot="carousel-previous"
+      variant={variant}
+      size={size}
+      className={cn(
+        "absolute size-8 rounded-full bg-none border-[1px] sm:border-white z-50 cursor-pointer",
+        orientation === "horizontal"
+          ? "-bottom-16 lg:top-1/2 left-74 lg:-left-12 -translate-y-1/2 "
+          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+        className
+      )}
+      disabled={!canScrollPrev}
+      onClick={scrollPrev}
+      {...props}
+    >
+      <ChevronLeft className="text-white" />
+      <span className="sr-only">Previous slide</span>
+    </Button>
+  )
+}
+
+function CustomCarouselNext1({
+  className,
+  variant = "ghost",
+  size = "icon",
+  ...props
+}: React.ComponentProps<typeof Button>) {
+  const { orientation, scrollNext, canScrollNext } = useCarousel()
+
+  return (
+    <Button
+      data-slot="carousel-next"
+      variant={variant}
+      size={size}
+      className={cn(
+        "absolute size-8 rounded-full bg-none border-[1px] sm:border-white z-50 cursor-pointer",
+        orientation === "horizontal"
+          ? " -bottom-16 lg:top-1/2 right-74 lg:-right-12 -translate-y-1/2"
+          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+        className
+      )}
+      disabled={!canScrollNext}
+      onClick={scrollNext}
+      {...props}
+    >
+      <ChevronRight className="text-white" />
+      <span className="sr-only">Next slide</span>
+    </Button>
+  )
+}
+
+function CustomCarouselPreviousWTS({
+  className,
+  variant = "ghost",
+  size = "icon",
+  ...props
+}: React.ComponentProps<typeof Button>) {
+  const { orientation, scrollPrev, canScrollPrev } = useCarousel()
+
+  return (
+    <Button
+      data-slot="carousel-previous"
+      variant={variant}
+      size={size}
+      className={cn(
+        "absolute h-10 w-10 sm:h-12 sm:w-12 rounded-full text-success hover:text-success sm:text-success bg-none border-[1px] sm:border-success z-50 cursor-pointer ",
+        orientation === "horizontal"
+          ? "right-12 sm:right-18 -top-11 sm:-top-12 lg:-top-[60px] 2xl:-top-[70px] -translate-y-1/2"
+          : "-top-4 left-1/2 -translate-x-1/2 rotate-90",
+        className
+      )}
+      disabled={!canScrollPrev}
+      onClick={scrollPrev}
+      {...props}
+    >
+      <IoIosArrowBack className="size-7 text-bgBlue" />
+      <span className="sr-only">Previous slide</span>
+    </Button>
+  )
+}
+
+
+function CustomCarouselNextWTS({
+  className,
+  variant = "ghost",
+  size = "icon",
+  ...props
+}: React.ComponentProps<typeof Button>) {
+  const { orientation, scrollNext, canScrollNext } = useCarousel()
+
+  return (
+    <Button
+      data-slot="carousel-next"
+      variant={variant}
+      size={size}
+      className={cn(
+        "absolute h-10 w-10 sm:h-12 sm:w-12 rounded-full text-success hover:text-success sm:text-success bg-none border-[1px] sm:border-success z-50 cursor-pointer",
+        orientation === "horizontal"
+          ? "right-0 sm:right-0 -top-11 sm:-top-12  lg:-top-[60px] 2xl:-top-[70px] -translate-y-1/2"
+          : "-bottom-4 left-1/2 -translate-x-1/2 rotate-90",
+        className
+      )}
+      disabled={!canScrollNext}
+      onClick={scrollNext}
+      {...props}
+    >
+      <IoIosArrowForward className="size-7 text-bgBlue"/>
+      <span className="sr-only">Next slide</span>
+    </Button>
+  )
+}
+
+
+
 export {
   type CarouselApi,
   Carousel,
@@ -300,4 +507,12 @@ export {
   CarouselNext,
   CarouselPrevious2,
   CarouselNext2,
+  CustomCarouselContent,
+  CustomCarouselNext,
+  CustomCarouselPrevious,
+  CustomCarouselPrevious1,
+  CustomCarouselNext1,
+  CustomCarouselPreviousWTS,
+  CustomCarouselNextWTS
+
 };
