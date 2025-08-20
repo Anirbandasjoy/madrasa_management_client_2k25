@@ -1,30 +1,66 @@
+'use client'
+import { EventCardSkeleton } from '@/components/layout/home/events/EventCardSkeleton'
+import Headline from '@/components/layout/home/ReusableComponents/Headline'
+import { useGetAllEventQuery } from '@/Redux/features/event/eventApi'
 import Image from 'next/image'
 import React from 'react'
-import eventImage from '@/../public/assets/Aword.jpg'
+import { CiCalendar } from 'react-icons/ci'
+import { IoArrowForwardOutline } from 'react-icons/io5'
 
-function EventsPage() {
-  return (
-    <div className='px-[5%]'>
+function Page() {
+
+    const { data, isLoading, isError } = useGetAllEventQuery({})
+    const events = data?.data.data
+    console.log(events)
+
+    return (
+        <div className='px-[5%]'>
             <div className="max-w-screen-xl mx-auto ">
-                <div className=" pb-6 sm:py-10">
-                    <div className="mb-3 sm:mb-6">
-                        <h1 className='text-2xl sm:text-3xl lg:text-[40px] font-medium text-neutral font-akshar '>Lorem ipsum dolor sit amet</h1>
-                        <p className='text-lg font-normal text-font-2 mt-1'>30 Nov, 2024</p>
-                    </div>
+                <Headline Title='Our Events' subTitle='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ' />
 
-                     <Image  src={eventImage} alt='all event img' height={600} width={1100} className=' rounded object-cover max-h-[90vh] mb-3 sm:mb-6'/>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-18">
+                    {
+                        events?.map((event) =>
+                            <div key={event._id} className="flex flex-col items-center bg-mint rounded group relative overflow-hidden">
 
-                    <div className="text-sm sm:text-base text-font-2 space-y-4">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-                    </div>
+                                <Image
+                                    src={event.images?.[0] || '/default-image.jpg'}
+                                    alt="teacher img"
+                                    height={200}
+                                    width={350}
+                                    className="w-full h-[250px] object-cover"
+                                />
+
+
+                                <div className="text-start px-3">
+                                    <p className="text-lg font-normal text-neutral py-2">{event.title} </p>
+                                    <div className="flex items-center justify-between pb-3">
+                                        <p className="text-base font-normal text-font-2 flex items-center gap-1"><CiCalendar className='w-5 h-5' /> 30 Nov, 2024</p>
+                                        <button className='py-1.5 px-4 bg-success flex items-center gap-1 text-white text-sm rounded-sm'>
+                                            Preview <IoArrowForwardOutline />
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }
+
+                    {
+                        isLoading && Array.from({ length: 4 }).map((_, i) =>
+                            <EventCardSkeleton key={i} />
+                        )
+                    }
                 </div>
-
-               
+                {
+                    isError && <div className="py-10 text-red-700 px-4 rounded relative my-4 text-center" role="alert">
+                        <strong className="font-bold">Error!</strong>
+                        <span className="block sm:inline ml-2">Something went wrong. Please try again.</span>
+                    </div>
+                }
             </div>
         </div>
-  )
+    )
 }
 
-export default EventsPage
+export default Page

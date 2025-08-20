@@ -5,10 +5,11 @@ const TeamApi = Api.injectEndpoints({
   endpoints: (builder) => ({
    
     getAllTeam: builder.query<TeamApiResponse, any>({
-      query: () => {
+      query: ({status}) => {
         return {
-          url: "/teams/",
-          method: "GET",
+          url: "/team",
+          method: "GET", 
+          params: status ? { status } : {},
         };
       },
     }),

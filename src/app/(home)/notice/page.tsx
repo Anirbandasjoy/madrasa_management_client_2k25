@@ -1,21 +1,77 @@
+'use client'
+import { NoticeCardSkeleton } from '@/components/layout/home/notice/NoticeCardSkeleton'
+import Headline from '@/components/layout/home/ReusableComponents/Headline'
+import { useGetAllNoticesQuery } from '@/Redux/features/notices/noticesApi'
+import { CalendarDays } from 'lucide-react'
+import Image from 'next/image'
 import React from 'react'
+import { IoArrowForwardOutline } from 'react-icons/io5'
 
 function NoticePage() {
+
+    const { data, isLoading, isError } = useGetAllNoticesQuery({})
+    const notices = data?.data.data
+
     return (
         <div className='px-[5%]'>
             <div className="max-w-screen-xl mx-auto ">
-                <div className="max-w-5xl mx-auto pb-10 sm:pb-16">
-                    <div className="mb-3 sm:mb-6">
-                        <h1 className='text-2xl sm:text-3xl lg:text-[40px] font-medium text-neutral font-akshar '>Lorem ipsum dolor sit amet</h1>
-                        <p className='text-lg font-normal text-font-2 mt-1'>30 Nov, 2024</p>
-                    </div>
 
-                    <div className="text-sm sm:text-base text-font-2 space-y-4">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-                    </div>
+
+                <Headline Title='All Notices' subTitle='Stay updated with all announcements, events, and important information' />
+
+
+                <h1 className='text-[40px] font-medium text-success text-start font-akshar pb-3'>New</h1>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-18">
+
+                    {
+                        notices?.map((notice) =>
+                            <div key={notice._id} className="bg-color-7 rounded p-6 space-y-4">
+                                {/* Icon + Title */}
+                                <div className="flex items-start gap-3">
+                                    <div className="bg-success p-3 rounded-full">
+                                        <Image src={'/assets/Megaphone.svg'} alt='Mega phone' width={34} height={34} className='max-w-40' />
+                                    </div>
+                                    <div>
+                                        <h2 className="text-lg font-medium text-font-1 leading-snug">
+                                            {notice.name}
+                                        </h2>
+
+                                        {/* Date */}
+                                        <div className="flex items-center gap-2 text-sm text-font-2 mt-1">
+                                            <CalendarDays className="w-4 h-4" />
+                                            <span>30 Nov, 2024</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Description */}
+                                <p className="text-base text-font-2 leading-relaxed line-clamp-2">
+                                    {notice.description}
+                                </p>
+
+                                {/* Button */}
+                                <button className="inline-flex items-center gap-1 bg-success text-white text-sm px-4 py-2 rounded-sm hover:bg-success/90 transition">
+                                    Read More <IoArrowForwardOutline className='w-5 h-5' />
+                                </button>
+                            </div>
+                        )
+                    }
+
+                    {
+                        isLoading && Array.from({ length: 2 }).map((_, i) =>
+                            <NoticeCardSkeleton key={i} />
+                        )
+                    }
                 </div>
+
+
+                {
+                    isError && <div className="py-10 text-red-700 px-4 rounded relative my-4 text-center" role="alert">
+                        <strong className="font-bold">Error!</strong>
+                        <span className="block sm:inline ml-2">Something went wrong. Please try again.</span>
+                    </div>
+                }
             </div>
         </div>
     )
