@@ -8,6 +8,13 @@
   font-family: var(--font-yanone-kaffeesatz);
 }
 
+@layer utilities {
+  .section-padding {
+    @apply py-12 sm:py-16 lg:py-20;
+    
+  }
+}
+
 @theme {
   --color-bg-yellow: #facc15;
   --color-bg-gradient-red-orange: linear-gradient(106.18deg, #e13030 1.35%, #f86f19 100%);
@@ -35,7 +42,11 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+/* 
+  py-15 = py-9 sm:py-12 lg:py-15
 
+
+*/
 
 .scrollbar-hide {
   -ms-overflow-style: none;  /* IE and Edge */

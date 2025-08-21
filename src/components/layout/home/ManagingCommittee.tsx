@@ -6,7 +6,7 @@ import { MdOutlineStar } from 'react-icons/md'
 function ManagingCommittee() {
     return (
         <div className='px-[5%] bg-color-7'>
-            <div className="max-w-screen-xl mx-auto py-12 sm:py-16 lg:py-20">
+            <div className="max-w-screen-xl mx-auto py-12 section-padding">
                 <h1 className='text-4xl sm:text-5xl font-medium font-akshar text-success pb-7 sm:pb-10 text-center flex items-center justify-center gap-5 lg:gap-6'>
                     <div className="sm:flex items-center hidden ">
                         <MdOutlineStar className='w-8 h-8 text-success' />
@@ -20,7 +20,7 @@ function ManagingCommittee() {
                         <MdOutlineStar className='w-12 h-12 text-success' />
                     </div>
                 </h1>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-7">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  gap-3 sm:gap-5 lg:gap-7">
                     {
                         Array.from({ length: 8 }).map((_, i) =>
                             <div key={i} className="">

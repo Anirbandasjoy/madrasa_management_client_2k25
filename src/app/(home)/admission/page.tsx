@@ -4,6 +4,7 @@ import {
     Table,
     TableBody,
     TableCell,
+    TableCellAdmission,
     TableHead,
     TableHeader,
     TableRow,
@@ -69,8 +70,8 @@ function AdmissionPage() {
 
     return (
         <div className='px-[5%]'>
-            <div className="max-w-screen-xl mx-auto  ">
-                <div className=" max-w-5xl mx-auto w-full rounded overflow-hidden pt-20">
+            <div className="max-w-screen-xl mx-auto  section-padding">
+                <div className=" max-w-5xl mx-auto w-full rounded overflow-hidden ">
                     <Table>
                         <TableHeader className="">
                             <TableRow className='font-akshar bg-success'>
@@ -82,9 +83,9 @@ function AdmissionPage() {
                         <TableBody className='bg-color-7'>
                             {admissions?.map((admission, index) => (
                                 <TableRow key={index} className='hover:bg-mint/50'>
-                                    <TableCell >{admission.className}</TableCell>
-                                    <TableCell>{formatDate(admission.admissionOpen)} </TableCell>
-                                    <TableCell>{formatDate(admission.admissionClose)}</TableCell>
+                                    <TableCellAdmission >{admission.className}</TableCellAdmission>
+                                    <TableCellAdmission>{formatDate(admission.admissionOpen)} </TableCellAdmission>
+                                    <TableCellAdmission>{formatDate(admission.admissionClose)}</TableCellAdmission>
                                 </TableRow>
                             ))}
 
@@ -113,8 +114,8 @@ function AdmissionPage() {
                     }
                 </div>
 
-                <div className="py-10 sm:py-16 max-w-5xl mx-auto">
-                    <h1 className='text-2xl sm:text-3xl lg:text-[40px] font-medium text-neutral font-akshar mb-3 sm:mb-6'>Admission <span className='text-success'>Process</span> & Procedure Brief</h1>
+                <div className="max-w-5xl mx-auto mt-12 sm:mt-15 lg:mt-18">
+                    <h1 className='text-3xl lg:text-[40px] font-medium text-neutral font-akshar mb-3 sm:mb-6'>Admission <span className='text-success'>Process</span> & Procedure Brief</h1>
                     <div className="text-sm sm:text-base text-font-2 space-y-4">
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>

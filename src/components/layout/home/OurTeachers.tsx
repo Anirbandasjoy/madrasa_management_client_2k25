@@ -15,7 +15,7 @@ function OurTeachers() {
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
             }}>
-            <div className="max-w-screen-xl mx-auto py-16 md:py-20">
+            <div className="max-w-screen-xl mx-auto py-14 sm:py-16 md:py-18">
                 <div className="relative flex flex-col sm:flex-row justify-between sm:items-end gap-5">
                     <header className="sm:w-1/2 space-y-2 sm:space-y-4">
                         <h1>
@@ -25,7 +25,7 @@ function OurTeachers() {
                     </header>
                     <div className=" sm:absolute right-40">
                         <Link href={"/property"}>
-                            <button className='px-5 py-3 bg-white rounded cursor-pointer'>Explore All</button>
+                            <button className='px-5 py-3 bg-white text-success rounded cursor-pointer'>Explore All</button>
                         </Link>
                     </div>
                 </div>

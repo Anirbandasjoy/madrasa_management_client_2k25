@@ -39,7 +39,7 @@ function ContactUs() {
     
 
     return (
-        <div className="bg-white px-[5%] pb-12 sm:pb-16 lg:pb-20">
+        <div className="bg-white px-[5%] pb-12 sm:pb-15 lg:pb-18">
             <div className="max-w-screen-xl mx-auto px-4  lg:py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
 

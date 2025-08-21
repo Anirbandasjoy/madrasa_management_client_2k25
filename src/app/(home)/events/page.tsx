@@ -18,7 +18,7 @@ function Page() {
             <div className="max-w-screen-xl mx-auto ">
                 <Headline Title='Our Events' subTitle='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ' />
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-18">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-4 sm:gap-6 lg:gap-8 section-padding">
                     {
                         events?.map((event) =>
                             <div key={event._id} className="flex flex-col items-center bg-mint rounded group relative overflow-hidden">

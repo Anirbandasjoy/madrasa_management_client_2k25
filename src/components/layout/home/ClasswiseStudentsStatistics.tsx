@@ -7,7 +7,7 @@ function ClasswiseStudentsStatistics() {
     const stats = Array(10).fill({ class: "Class 6", students: 107 });
 
     return (
-        <div className='px-[5%] bg-success pt-12 pb-16' style={{
+        <div className='px-[5%] bg-success  py-12 sm:pt-12 lg:pb-16' style={{
                 backgroundImage: "url('pattern1.svg')",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",

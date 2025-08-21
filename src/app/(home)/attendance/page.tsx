@@ -62,113 +62,115 @@ function AttendancePage() {
 
 
     return (
-        <div className="px-[5%] py-20">
+        <div className="px-[5%] ">
 
-            <div className="">
-                <h1 className='text-2xl sm:text-[40px] font-medium font-akshar text-success text-center max-w-4xl mx-auto'>Fill the form ( class, section and date ) to see the  attendance sheet</h1>
-            </div>
+            <div className="max-w-screen-xl mx-auto section-padding">
+                <div className="">
+                    <h1 className='text-2xl sm:text-[40px] font-medium font-akshar text-success text-center max-w-4xl mx-auto'>Fill the form ( class, section and date ) to see the  attendance sheet</h1>
+                </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 mt-10">
-                <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className=" sm:max-w-52 lg:max-w-64 w-full p-4 bg-mint "
-                >
-                    <div className="grid grid-cols-1 gap-5 items-center">
+                <div className="flex flex-col sm:flex-row gap-4 mt-10">
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className=" sm:max-w-52 lg:max-w-64 w-full p-4 bg-mint "
+                    >
+                        <div className="grid grid-cols-1 sm:gap-5 items-center">
 
-                        <div className="flex flex-col">
-                            <label className="text-base font-normal text-neutral mb-2">Class</label>
-                            <select {...register("class")} className="sm:col-span-2 input input-bordered bg-white text-sm font-normal text-font-2 py-2 px-4 ring-1 ring-gray-200 rounded-md focus:outline-2 mb-4 sm:mb-0">
-                                <option value="">Select</option>
-                                <option value="Six">Six</option>
-                                <option value="Seven">Seven</option>
-                                <option value="Eight">Eight</option>
-                            </select>
-                        </div>
-
-
-
-                        <div className="flex flex-col">
-                            <label className="text-base font-normal text-neutral mb-2">Section</label>
-                            <select {...register("section")} className="sm:col-span-2 input input-bordered bg-white text-sm font-normal text-font-2 py-2 px-4 ring-1 ring-gray-200 rounded-md focus:outline-2 mb-4 sm:mb-0 ">
-                                <option value="">Select</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                            </select>
-                        </div>
+                            <div className="flex flex-col">
+                                <label className="text-base font-normal text-neutral mb-2">Class</label>
+                                <select {...register("class")} className="sm:col-span-2 input input-bordered bg-white text-sm font-normal text-font-2 py-2 px-4 ring-1 ring-gray-200 rounded-md focus:outline-2 mb-4 sm:mb-0">
+                                    <option value="">Select</option>
+                                    <option value="Six">Six</option>
+                                    <option value="Seven">Seven</option>
+                                    <option value="Eight">Eight</option>
+                                </select>
+                            </div>
 
 
 
-                        <div className="flex flex-col gap-3">
-                            <Label htmlFor="date" className="text-base font-normal text-font-1 px-1">
-                                Date of birth
-                            </Label>
-                            <Popover open={open} onOpenChange={setOpen}>
-                                <PopoverTrigger asChild>
-                                    <Button
-                                        variant="outline"
-                                        id="date"
-                                        className="w-full justify-between font-normal"
-                                    >
-                                        {date ? date.toLocaleDateString() : "Select date"}
-                                        <ChevronDownIcon />
-                                    </Button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto overflow-hidden p-0" align="start">
-                                    <Calendar
-                                        mode="single"
-                                        selected={date}
-                                        captionLayout="dropdown"
-                                        onSelect={(date: any) => {
-                                            setDate(date)
-                                            setOpen(false)
-                                        }}
-                                    />
-                                </PopoverContent>
-                            </Popover>
-                        </div>
+                            <div className="flex flex-col">
+                                <label className="text-base font-normal text-neutral mb-2">Section</label>
+                                <select {...register("section")} className="sm:col-span-2 input input-bordered bg-white text-sm font-normal text-font-2 py-2 px-4 ring-1 ring-gray-200 rounded-md focus:outline-2 mb-4 sm:mb-0 ">
+                                    <option value="">Select</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                </select>
+                            </div>
 
 
-                    </div>
 
-                    <div className="flex justify-center mt-6">
-                        <button type="submit" className="w-full py-2 px-12 rounded bg-success text-white hover:bg-success/80">
-                            Search
-                        </button>
-                    </div>
-                </form>
-
-                <div className="max-w-4xl w-full">
-                    <Table>
-                        <TableHeader className="bg-success">
-                            <TableRow>
-                                <TableHead className="w-[100px] text-white">Roll No</TableHead>
-                                <TableHead className="text-white">Name</TableHead>
-                                <TableHead className="text-white ">Attendance</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {attendanceData.map((row, index) => (
-                                <TableRow key={index} className="odd:bg-gray-100">
-                                    <TableCell className="font-medium">{row.rollNo}</TableCell>
-                                    <TableCell>{row.name}</TableCell>
-                                    <TableCell className="">
+                            <div className="flex flex-col gap-3">
+                                <Label htmlFor="date" className="text-base font-normal text-font-1 px-1">
+                                    Date of birth
+                                </Label>
+                                <Popover open={open} onOpenChange={setOpen}>
+                                    <PopoverTrigger asChild>
                                         <Button
-                                            variant="ghost"
-                                            className={`
-                  ${row.attendance === 'PRESENT' ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-red-500 text-white hover:bg-red-600'}
-                  rounded-full
-                `}
+                                            variant="outline"
+                                            id="date"
+                                            className="w-full justify-between font-normal"
                                         >
-                                            {row.attendance}
+                                            {date ? date.toLocaleDateString() : "Select date"}
+                                            <ChevronDownIcon />
                                         </Button>
-                                    </TableCell>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-auto overflow-hidden p-0" align="start">
+                                        <Calendar
+                                            mode="single"
+                                            selected={date}
+                                            captionLayout="dropdown"
+                                            onSelect={(date: any) => {
+                                                setDate(date)
+                                                setOpen(false)
+                                            }}
+                                        />
+                                    </PopoverContent>
+                                </Popover>
+                            </div>
+
+
+                        </div>
+
+                        <div className="flex justify-center mt-6">
+                            <button type="submit" className="w-full py-2 px-12 rounded bg-success text-white hover:bg-success/80">
+                                Search
+                            </button>
+                        </div>
+                    </form>
+
+                    <div className="max-w-4xl w-full">
+                        <Table>
+                            <TableHeader className="bg-success">
+                                <TableRow>
+                                    <TableHead className="w-[100px] text-white">Roll No</TableHead>
+                                    <TableHead className="text-white">Name</TableHead>
+                                    <TableHead className="text-white ">Attendance</TableHead>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                            </TableHeader>
+                            <TableBody>
+                                {attendanceData.map((row, index) => (
+                                    <TableRow key={index} className="odd:bg-gray-100">
+                                        <TableCell className="font-medium">{row.rollNo}</TableCell>
+                                        <TableCell>{row.name}</TableCell>
+                                        <TableCell className="">
+                                            <Button
+                                                variant="ghost"
+                                                size={'sm'}
+                                                className={`
+                  ${row.attendance === 'PRESENT' ? 'bg-blue-600 text-white  hover:bg-blue-700' : 'bg-red-500 text-white hover:bg-red-600'}
+                  rounded-full text-xs
+                `}
+                                            >
+                                                {row.attendance}
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </div>
                 </div>
             </div>
-
         </div>
     )
 }
