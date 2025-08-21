@@ -5,6 +5,7 @@ import { NoticeCard } from '../shared/about/NoticeCard';
 import ClassIcon from '@/../public/about/class.svg';
 import teacher from '@/../public/about/teacher.svg';
 import staffs from '@/../public/about/student.svg';
+import Link from 'next/link';
 
 const AboutSection = () => {
   const stats = [
@@ -23,7 +24,7 @@ const AboutSection = () => {
 
   return (
     <div className="bg-gray-50 px-[5%]">
-      <div className="max-w-screen-xl mx-auto px-4 py-12">
+      <div className="max-w-screen-xl mx-auto section-padding">
         <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-12">
 
           {/* Left Column: Main Content */}
@@ -32,14 +33,14 @@ const AboutSection = () => {
               <h2 className="text-3xl sm:text-[40px] font-medium font-akshar text-gray-800 mb-6">About <span className='text-success'>Lorem ipsum</span></h2>
               <div className="font-normal space-y-4 text-font-2 leading-relaxed">
                 <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
                 <p>
-                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
                 <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor. 
-                
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.
+
                 </p>
               </div>
             </section>
@@ -63,9 +64,11 @@ const AboutSection = () => {
                     <NoticeCard key={index} {...notice} />
                   ))}
                 </div>
-                <button className="w-full py-2 text-lg font-normal rounded-md mt-6 bg-success hover:bg-success/90 cursor-pointer text-white">
-                  More
-                </button>
+                <Link href={'/notice'}>
+                  <button className="w-full py-2 text-lg font-normal rounded-md mt-6 bg-success hover:bg-success/90 cursor-pointer text-white">
+                    More
+                  </button>
+                  </Link>
               </div>
             </div>
           </aside>

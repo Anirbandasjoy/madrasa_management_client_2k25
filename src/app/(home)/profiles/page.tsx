@@ -23,7 +23,7 @@ function ProfilesPage() {
 
     return (
         <div className='px-[5%]'>
-            <div className="max-w-screen-xl mx-auto relative z-30 py-20 ">
+            <div className="max-w-screen-xl mx-auto relative z-30 section-padding ">
 
                 <div className="relative z-30 overflow-x-auto scroll-smooth scrollbar-hide">
                     <Tabs value={status} onValueChange={setStatus} className="w-full pt-2 pb-10 ">

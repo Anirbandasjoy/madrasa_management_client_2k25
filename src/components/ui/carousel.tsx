@@ -327,7 +327,7 @@ function CustomCarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        "absolute h-10 w-10 sm:h-12 sm:w-12 rounded-full text-[#101828] sm:text-white bg-none border-[1px] sm:border-white z-50 cursor-pointer ",
+        "absolute h-10 w-10 sm:h-12 sm:w-12 rounded-full text-white sm:text-white hover:text-success bg-none border-[1px] sm:border-white z-50 cursor-pointer ",
         orientation === "horizontal"
           ? "right-12 sm:right-18 -top-11 sm:-top-12 lg:-top-[60px] 2xl:-top-[70px] -translate-y-1/2"
           : "-top-4 left-1/2 -translate-x-1/2 rotate-90",
@@ -358,7 +358,7 @@ function CustomCarouselNext({
       variant={variant}
       size={size}
       className={cn(
-        "absolute h-10 w-10 sm:h-12 sm:w-12 rounded-full text-[#101828] sm:text-primary bg-none border-[1px] sm:border-white z-50 cursor-pointer",
+        "absolute h-10 w-10 sm:h-12 sm:w-12 rounded-full text-white sm:text-white hover:text-success bg-none border-[1px] sm:border-white z-50 cursor-pointer",
         orientation === "horizontal"
           ? "right-0 sm:right-0 -top-11 sm:-top-12  lg:-top-[60px] 2xl:-top-[70px] -translate-y-1/2"
           : "-bottom-4 left-1/2 -translate-x-1/2 rotate-90",

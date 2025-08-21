@@ -51,7 +51,7 @@ function NoticePage() {
                                 </p>
 
                                 {/* Button */}
-                                <button className="inline-flex items-center gap-1 bg-success text-white text-sm px-4 py-2 rounded-sm hover:bg-success/90 transition">
+                                <button className="inline-flex items-center gap-1 bg-success text-white text-sm px-4 py-2 rounded-sm hover:bg-success/90 transition cursor-pointer">
                                     Read More <IoArrowForwardOutline className='w-5 h-5' />
                                 </button>
                             </div>

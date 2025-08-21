@@ -25,8 +25,8 @@ function Events() {
 
 
     return (
-        <div className="bg-gray-50 px-[5%] pb-12 sm:pb-16 lg:pb-20">
-            <div className="max-w-screen-xl mx-auto px-4 py-12">
+        <div className="bg-gray-50 px-[5%] ">
+            <div className="max-w-screen-xl mx-auto section-padding">
                 <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-12">
 
                     {/* Left Column: Main Content */}

@@ -5,7 +5,7 @@ import { MdOutlineStar } from 'react-icons/md'
 function MediaCoverage() {
     return (
         <div className='px-[5%] bg-color-7'>
-            <div className="max-w-screen-xl mx-auto py-12 sm:py-16 lg:py-20">
+            <div className="max-w-screen-xl mx-auto py-12 sm:pt-12 lg:pb-16">
                 <h1 className='text-4xl sm:text-5xl font-medium font-akshar text-success pb-7 sm:pb-10 text-center flex items-center justify-center gap-5 lg:gap-6'>
                     <div className="sm:flex items-center hidden ">
                         <MdOutlineStar className='w-8 h-8 text-success' />

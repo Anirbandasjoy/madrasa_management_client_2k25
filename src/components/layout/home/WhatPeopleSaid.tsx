@@ -5,7 +5,7 @@ import Image from 'next/image'
 function WhatPeopleSaid() {
     return (
         <section className="px-[5%] bg-white " >
-            <div className="max-w-screen-xl mx-auto py-16 md:py-20">
+            <div className="max-w-screen-xl mx-auto section-padding">
                 <div className="relative flex flex-col sm:flex-row justify-between sm:items-end gap-5">
                     <header className="sm:w-1/2 space-y-2 sm:space-y-4">
                         <h1>
