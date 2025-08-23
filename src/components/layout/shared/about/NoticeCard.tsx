@@ -1,16 +1,17 @@
+import React from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
+import { Notice } from "@/Redux/features/notices/noticesType";
 
 
-// components/NoticeCard.tsx
-interface NoticeCardProps {
-    title: string;
-    date: string;
-}
 
-export const NoticeCard = ({ title, date }: NoticeCardProps) => {
+export const NoticeCard = (notice: Notice)=> {
+
+    // skeleton
+
+    
     return (
         <div className="gap-4 bg-white p-4 rounded-lg shadow-custom cursor-pointer">
-            <p className="text-lg font-normal text-gray-800 ">{title}</p>
+            <p className="text-lg font-normal text-gray-800 ">{notice?.name}</p>
             <Dialog>
                 <DialogTrigger className='text-sm text-[#2E3192] cursor-pointer mb-1'> {/* Read More Link */}
                     Read More
@@ -30,13 +31,13 @@ export const NoticeCard = ({ title, date }: NoticeCardProps) => {
                                 About
                             </h2>
                             <p className="text-font-2 mt-3 text-base leading-relaxed">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic facilis eos ut necessitatibus deleniti iste deserunt ducimus aspernatur minus vero distinctio, autem modi exercitationem quis voluptatibus delectus, quam consectetur! Ratione vero voluptates dicta molestiae recusandae similique quos eveniet hic quaerat rem, veritatis, beatae praesentium ex cum libero iusto possimus dolorum.
+                                {notice?.description}
                             </p>
                         </div>
                     </DialogHeader>
                 </DialogContent>
             </Dialog>
-            <p className="text-sm font-normal text-font-2 ">{date}</p>
+            <p className="text-sm font-normal text-font-2 ">{new Date(notice.createdAt).toLocaleDateString()}</p>
         </div>
 
     );

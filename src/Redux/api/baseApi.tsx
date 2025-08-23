@@ -44,9 +44,9 @@ export const baseQueryWithReAuth: BaseQueryFn<
 
 // Define the `blogApiWork` API slice
 const Api = createApi({
-  reducerPath: "immigrationApi",
+  reducerPath: "madrasahApi",
   baseQuery: baseQueryWithReAuth,
-  tagTypes: ["MediaGallery", "Blog", "Video", "UpcomingShow", "Contact"], // ✅ MUST BE PRESENT
+  tagTypes: ["MediaGallery", "Blog", "Video", "UpcomingShow", "Contact"],
   endpoints: () => ({}),
 });
 
