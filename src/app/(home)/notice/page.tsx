@@ -10,7 +10,9 @@ import { IoArrowForwardOutline } from 'react-icons/io5'
 function NoticePage() {
 
     const { data, isLoading, isError } = useGetAllNoticesQuery({})
-    const notices = data?.data.data
+    const notices = data?.data.data || []
+    
+    console.log(data, "notice data")
 
     return (
         <div className='px-[5%]'>

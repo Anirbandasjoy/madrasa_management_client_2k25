@@ -9,6 +9,7 @@ import {
   Building,
   Building2,
   Building2Icon,
+  MessageCircle,
 } from "lucide-react";
 
 import {
@@ -79,6 +80,19 @@ const data = {
           url: "/dashboard/manage-video",
           icon: Building2Icon,
         },
+        
+      ],
+    },
+     {
+      title: "Message",
+      url: "#",
+      icon: MessageCircle,
+      items: [
+        {
+          title: "Manage Messages",
+          url: "/dashboard/manage-message",
+        },
+        
       ],
     },
   ],
